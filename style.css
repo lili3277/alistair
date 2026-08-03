@@ -1,0 +1,320 @@
+/* ===== 全局重置 & 字体 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at 20% 30%, #0b0e1a, #030507);
+    font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ===== 背景粒子（由JS绘制，但这里用canvas占位） ===== */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ===== 主卡片 ===== */
+.profile-card {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    width: 100%;
+    background: rgba(20, 25, 45, 0.75);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 48px;
+    padding: 40px 36px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 100, 200, 0.2);
+    border: 1px solid rgba(255, 150, 255, 0.15);
+    transition: all 0.3s ease;
+    animation: cardFloat 6s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ===== 头像区 ===== */
+.avatar-section {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.avatar-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, #ff6ec7, #ffb86b, #6bffb8);
+    animation: spinRing 10s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+    background: #1a1f33;
+    border: 3px solid #0b0e1a;
+}
+
+.avatar-ring {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 100, 200, 0.3);
+    pointer-events: none;
+}
+
+.name {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f7971e, #ffd200, #f7971e);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 4s ease-in-out infinite;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(255, 200, 0, 0.2);
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.title {
+    color: #b0b8d0;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    opacity: 0.8;
+}
+
+/* ===== 信息区 ===== */
+.info-section {
+    margin-top: 10px;
+}
+
+.bio {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 24px;
+    padding: 20px 24px;
+    border-left: 4px solid #ff6ec7;
+    margin-bottom: 28px;
+}
+
+.bio p {
+    color: #cfd8ec;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.bio p:last-child {
+    margin-bottom: 0;
+}
+
+.highlight {
+    color: #ffb86b;
+    font-weight: 600;
+    text-shadow: 0 0 12px rgba(255, 184, 107, 0.3);
+}
+
+/* ===== 技能条 ===== */
+.skills {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+.skill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b0c0e0;
+    font-size: 0.95rem;
+}
+
+.skill span:first-child {
+    min-width: 110px;
+}
+
+.bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+
+.fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ff6ec7, #ffb86b, #6bffb8);
+    background-size: 300% 100%;
+    animation: fillMove 3s linear infinite;
+    box-shadow: 0 0 16px rgba(255, 110, 199, 0.4);
+    transition: width 0.5s ease;
+}
+
+@keyframes fillMove {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 300% 0%; }
+}
+
+.skill .value {
+    min-width: 50px;
+    text-align: right;
+    font-weight: 700;
+    color: #ffb86b;
+    font-size: 0.9rem;
+}
+
+/* ===== 互动按钮 ===== */
+.interact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 40px;
+    color: #e0e8ff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(4px);
+    letter-spacing: 1px;
+    flex: 1 0 auto;
+}
+
+.btn:hover {
+    background: rgba(255, 110, 199, 0.2);
+    border-color: #ff6ec7;
+    transform: scale(1.03);
+    box-shadow: 0 0 24px rgba(255, 110, 199, 0.2);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.result {
+    width: 100%;
+    margin-top: 8px;
+    padding: 14px 18px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    color: #b8c8f0;
+    font-size: 0.95rem;
+    border-left: 3px solid #6bffb8;
+    min-height: 54px;
+    transition: all 0.3s ease;
+}
+
+/* ===== 社交链接 ===== */
+.socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.social-link {
+    color: #9aabd0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 6px 18px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s;
+    letter-spacing: 1px;
+}
+
+.social-link:hover {
+    background: rgba(255, 110, 199, 0.15);
+    border-color: #ff6ec7;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 110, 199, 0.15);
+}
+
+/* ===== 脚注 ===== */
+.footer {
+    text-align: center;
+    color: #6a7a9a;
+    font-size: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    margin-top: 8px;
+}
+
+.footer p {
+    margin-bottom: 4px;
+}
+
+.domain {
+    opacity: 0.6;
+    font-style: italic;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 600px) {
+    .profile-card {
+        padding: 24px 18px;
+    }
+    .name {
+        font-size: 1.8rem;
+    }
+    .skill span:first-child {
+        min-width: 80px;
+        font-size: 0.8rem;
+    }
+    .btn {
+        font-size: 0.8rem;
+        padding: 8px 14px;
+    }
+}
